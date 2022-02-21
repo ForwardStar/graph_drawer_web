@@ -27,7 +27,8 @@ function httpRequestSend(count) {
     request.onreadystatechange = function() {
         if (request.readyState === 4 && request.status === 200) {
             if (request.responseText === "TreeTest Failed") {
-                alert(request.responseText + ": the input graph is not a tree.")
+                alert(request.responseText + ": the input graph is not a tree.");
+                count = count - 1;
             }
             else {
                 const img = document.getElementById("img");
