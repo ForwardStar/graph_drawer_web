@@ -9,7 +9,7 @@ function uuid() {
 const user_id = uuid();
 var count = 0;
 
-function httpRequestSend(count) {
+function httpRequestSend() {
     var text_area = document.getElementById("text_area");
     var is_tree = document.getElementById("is_tree");
     var is_circle = document.getElementById("is_circle");
@@ -43,7 +43,7 @@ function httpRequestSend(count) {
 const text_area = document.getElementById("text_area");
 if (text_area) {
     text_area.value = "1 2 1\n2 3 2\n1 3 3\n";
-    httpRequestSend(count);
+    httpRequestSend();
 }
 
 const selector = document.querySelectorAll("input.graph_type");
@@ -63,7 +63,7 @@ const submit = document.getElementById("submit");
 if (submit) {
     submit.onclick = function() {
         count = count + 1;
-        httpRequestSend(count);
+        httpRequestSend();
     }
 }
 
