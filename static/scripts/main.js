@@ -15,8 +15,7 @@ function httpRequestSend(count) {
     var is_circle = document.getElementById("is_circle");
     var is_line = document.getElementById("is_line");
     var current_session = user_id + count.toString(10);
-    var json_object = {"command": "graph2img --output-format=svg ",
-                    "data": text_area.value,
+    var json_object = {"data": text_area.value,
                     "is_tree": is_tree.checked,
                     "is_circle": is_circle.checked,
                     "is_line": is_line.checked,
@@ -27,9 +26,14 @@ function httpRequestSend(count) {
     request.send(JSON.stringify(json_object));
     request.onreadystatechange = function() {
         if (request.readyState === 4 && request.status === 200) {
-            const img = document.getElementById("img");
-            if (img) {
-                img.src = "static/img/" + current_session + ".svg";
+            if (request.responseText === "TreeTest Failed") {
+                alert(request.responseText + ": the input graph is not a tree.")
+            }
+            else {
+                const img = document.getElementById("img");
+                if (img) {
+                    img.src = "static/img/" + current_session + ".svg";
+                }
             }
         }
     }
