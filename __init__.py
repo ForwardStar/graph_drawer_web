@@ -3,7 +3,7 @@ import os
 import time
 
 app = Flask(__name__)
-path = "/home/xiehaoxuan/graph2img_web/static/img"
+path = "static/img"
 
 @app.route('/')
 def index():
@@ -31,4 +31,4 @@ def generate():
     return resp
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', debug=False)
