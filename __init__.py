@@ -12,6 +12,8 @@ def index():
 @app.route('/generate', methods=['POST'])
 def generate():
     json_object = request.get_json()
+    if not os.path.exists(path):
+        os.mkdir(path)
     tempPath = os.path.join(path, json_object["user_id"] + "temp")
     inputPath = os.path.join(path, json_object["user_id"] + ".txt")
     outputPath = os.path.join(path, json_object["user_id"] + ".svg")
