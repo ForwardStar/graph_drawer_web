@@ -1,0 +1,40 @@
+<head>
+<style type="text/css">
+  @font-face {
+    font-family: "Computer Modern";
+    src: url('static/text/cmunsi.otf');
+  }
+  title {
+    font-family: "Computer Modern", sans-serif;
+  }
+  body {
+    font-family: "Computer Modern", sans-serif;
+  }
+</style>
+<title>Graph Drawer</title>
+</head>
+
+<body>
+<b>Powered by <a href="https://pypi.org/project/graph2img/">graph2img</a></b><br>
+Edge data: <br>
+<textarea rows=20 cols=100 id="text_area"></textarea>
+<br>
+
+Tree: <input class="graph_type" id="is_tree" type="checkbox">
+Circle: <input class="graph_type" id="is_circle" type="checkbox" checked=true>
+Line: <input class="graph_type" id="is_line" type="checkbox">
+<br>
+
+<embed id="img" width="400" height="400" 
+type="image/svg+xml"
+pluginspage="http://www.adobe.com/svg/viewer/install/"/>
+
+<br>
+
+<input type="submit" id="submit" value="Submit">
+<input type="reset" id="reset" value="Reset">
+<input type="button" id="download" value="Download svg">
+
+</body>
+
+<script src="static/scripts/main.js"></script>
