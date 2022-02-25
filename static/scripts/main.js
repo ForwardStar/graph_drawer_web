@@ -20,6 +20,10 @@ function httpRequestSend() {
                     "is_circle": is_circle.checked,
                     "is_line": is_line.checked,
                     "user_id": current_session};
+    if (json_object["is_tree"] === false && json_object["is_circle"] === false && json_object["is_line"] === false) {
+        alert("InputFormat Error: please select a type of graph to draw.");
+        return;
+    }
     const request = new XMLHttpRequest();
     request.open("POST", `generate`);
     request.setRequestHeader("content-type", "application/json");
@@ -34,6 +38,55 @@ function httpRequestSend() {
                 const img = document.getElementById("img");
                 if (img) {
                     img.src = "static/img/" + current_session + ".svg";
+                }
+                if (json_object["is_line"]) {
+                    var vertex_set = new Map();
+                    var u = "";
+                    var v = "";
+                    var start_position = 0;
+                    user_input = json_object["data"];
+                    for (var i = 0; i < user_input.length; i++) {
+                        if (user_input[i] === ' ') {
+                            if (i === 0 || user_input[i - 1] === ' ') {
+                                start_position = i + 1;
+                                continue;
+                            }
+                            if (u === "") {
+                                for (var j = start_position; j < i; j++) {
+                                    u += user_input[j];
+                                }
+                            }
+                            else if (v === "") {
+                                for (var j = start_position; j < i; j++) {
+                                    v += user_input[j];
+                                }
+                            }
+                            start_position = i + 1;
+                        }
+                        else if (user_input[i] === "\n") {
+                            if (vertex_set.has(u) === false) {
+                                vertex_set.set(u, true);
+                            }
+                            if (vertex_set.has(v) === false) {
+                                vertex_set.set(v, true);
+                            }
+                            u = "";
+                            v = "";
+                            start_position = i + 1;
+                        }
+                    }
+                    if (u != "" && vertex_set.has(u) === false) {
+                        vertex_set.set(u, true);
+                    }
+                    if (v != "" && vertex_set.has(v) === false) {
+                        vertex_set.set(v, true);
+                    }
+                    if (vertex_set.size >= 10) {
+                        img.width = "100%";
+                    }
+                    else {
+                        img.width = String(vertex_set.size * 10) + "%";
+                    }
                 }
             }
         }
